@@ -1,19 +1,25 @@
 {
-  "name": "@elm-chat/api",
+  "name": "@elm-chat/web",
   "version": "0.1.2",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@elm-chat/room-do": "*",
-    "@elm-chat/shared": "*"
+    "@elm-chat/crypto": "*",
+    "@elm-chat/shared": "*",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "wrangler": "^4.10.0"
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.2"
   },
   "scripts": {
-    "build": "wrangler deploy --dry-run",
-    "dev": "wrangler dev",
-    "deploy": "CLOUDFLARE_ACCOUNT_ID=\"${ELM_CHAT_CLOUDFLARE_ACCOUNT_ID:-$CLOUDFLARE_ACCOUNT_ID}\" wrangler deploy",
+    "build": "vite build && node scripts/gen-sitemap.mjs && node scripts/prerender-marketing.mjs && node scripts/gen-feed.mjs",
+    "dev": "vite",
+    "indexnow": "node scripts/submit-indexnow.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   }
 }
